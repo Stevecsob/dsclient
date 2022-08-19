@@ -2,8 +2,12 @@ package com.scs.dsclient.DTO;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import com.scs.dsclient.entities.Client;
+
 
 public class ClientDTO implements Serializable {
 
@@ -28,16 +32,20 @@ public class ClientDTO implements Serializable {
 		birthDate = client.getBirthDate();
 		children = client.getChildren();
 	}
-
-	public ClientDTO(Long id, String name, String cpf, Double income, Instant birthDate, Integer children) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.cpf = cpf;
-		this.income = income;
-		this.birthDate = birthDate;
-		this.children = children;
+	
+	public static List<ClientDTO> listConvert(List<Client> client) {
+		return client.stream().map(ClientDTO::new).collect(Collectors.toList());
 	}
+
+//	public ClientDTO(Long id, String name, String cpf, Double income, Instant birthDate, Integer children) {
+//		super();
+//		this.id = id;
+//		this.name = name;
+//		this.cpf = cpf;
+//		this.income = income;
+//		this.birthDate = birthDate;
+//		this.children = children;
+//	}
 
 	public Long getId() {
 		return id;
